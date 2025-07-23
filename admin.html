@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal Star Residency - Admin Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container-fluid">
+            <button class="navbar-toggler me-3" type="button" id="sidebarToggle" aria-label="Toggle sidebar">
+                <i class="bi bi-list"></i>
+            </button>
+            <a class="navbar-brand" href="#">Royal <span>Star</span> Resort</a>
+            <div class="d-flex align-items-center ms-auto">
+                <div class="input-group me-3 d-none d-lg-flex">
+                    <input type="text" class="form-control" placeholder="Search..." aria-label="Search">
+                    <button class="btn btn-outline-secondary" type="button" aria-label="Search">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
+                <div class="dropdown me-3">
+                    <a href="#" class="position-relative text-dark" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Notifications">
+                        <i class="bi bi-bell fs-5"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            5
+                            <span class="visually-hidden">unread notifications</span>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end p-0" aria-labelledby="notificationDropdown">
+                        <li class="dropdown-header bg-light py-2 px-3">
+                            <h6 class="m-0">Notifications (5)</h6>
+                        </li>
+                        <li><hr class="dropdown-divider m-0"></li>
+                        <li>
+                            <a class="dropdown-item d-flex py-2 px-3" href="#">
+                                <div class="me-3 text-success"><i class="bi bi-check-circle-fill"></i></div>
+                                <div>
+                                    <div class="small">New booking confirmed</div>
+                                    <small class="text-muted">2 min ago</small>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex py-2 px-3" href="#">
+                                <div class="me-3 text-warning"><i class="bi bi-exclamation-triangle-fill"></i></div>
+                                <div>
+                                    <div class="small">Room 205 checkout delayed</div>
+                                    <small class="text-muted">30 min ago</small>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex py-2 px-3" href="#">
+                                <div class="me-3 text-primary"><i class="bi bi-info-circle-fill"></i></div>
+                                <div>
+                                    <div class="small">New guest review received</div>
+                                    <small class="text-muted">1 hour ago</small>
+                                </div>
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider m-0"></li>
+                        <li class="dropdown-footer text-center py-2">
+                            <a href="#" class="text-primary">View all notifications</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle text-decoration-none" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" aria-label="User menu">
+                        <img src="" alt="Admin" class="user-avatar rounded-circle" width="35" height="35">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i> Profile</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-envelope me-2"></i> Messages <span class="badge bg-primary float-end">3</span></a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img src="" alt="Admin" class="user-avatar">
+            <h5 class="user-name">Bijo K Binoy</h5>
+            <p class="user-role">Administrator</p>
+        </div>
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link active" href="#dashboard" data-bs-toggle="tab"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="#rooms" data-bs-toggle="tab"><i class="bi bi-house-door"></i> Rooms Management</a></li>
+            <li class="nav-item"><a class="nav-link" href="#bookings" data-bs-toggle="tab"><i class="bi bi-calendar-check"></i> Bookings</a></li>
+            <li class="nav-item"><a class="nav-link" href="#packages" data-bs-toggle="tab"><i class="bi bi-gift"></i> Packages & Events</a></li>
+            <li class="nav-item"><a class="nav-link" href="#guests" data-bs-toggle="tab"><i class="bi bi-people"></i> Guest Management</a></li>
+            <li class="nav-item"><a class="nav-link" href="#dining" data-bs-toggle="tab"><i class="bi bi-cup-hot"></i> Dining & Restaurant</a></li>
+            <li class="nav-item"><a class="nav-link" href="#approvals" data-bs-toggle="tab"><i class="bi bi-check-circle"></i> Room Approvals</a></li>
+            <li class="nav-item"><a class="nav-link" href="#reports" data-bs-toggle="tab"><i class="bi bi-graph-up"></i> Reports & Analytics</a></li>
+            <li class="nav-item"><a class="nav-link" href="#staff" data-bs-toggle="tab"><i class="bi bi-person-badge"></i> Staff Management</a></li>
+            <li class="nav-item"><a class="nav-link" href="#settings" data-bs-toggle="tab"><i class="bi bi-gear"></i> System Settings</a></li>
+        </ul>
+        <button class="logout-btn"><i class="bi bi-box-arrow-right"></i> Logout</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <div class="tab-content">
+            <!-- Dashboard Tab -->
+            <div class="tab-pane fade show active" id="dashboard">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3 class="section-title">Dashboard Overview</h3>
+                    <div class="d-flex">
+                        <select class="form-select form-select-sm me-2" aria-label="Time range">
+                            <option>Today</option>
+                            <option>This Week</option>
+                            <option selected>This Month</option>
+                            <option>This Year</option>
+                            <option>Custom Range</option>
+                        </select>
+                        <button class="action-btn btn-sm"><i class="bi bi-download me-1"></i> Export</button>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card quick-action-card" onclick="location.href='#bookings';">
+                            <div class="quick-action-icon"><i class="bi bi-plus-lg"></i></div>
+                            <h5>New Booking</h5>
+                            <p class="text-muted small">Create a new reservation</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card quick-action-card" onclick="location.href='#rooms';">
+                            <div class="quick-action-icon"><i class="bi bi-house-add"></i></div>
+                            <h5>Add Room</h5>
+                            <p class="text-muted small">Add new room to inventory</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card quick-action-card" onclick="location.href='#approvals';">
+                            <div class="quick-action-icon"><i class="bi bi-check2-circle"></i></div>
+                            <h5>Room Approvals</h5>
+                            <p class="text-muted small">Manage pending approvals</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card quick-action-card" onclick="location.href='#reports';">
+                            <div class="quick-action-icon"><i class="bi bi-file-earmark-bar-graph"></i></div>
+                            <h5>Generate Report</h5>
+                            <p class="text-muted small">Create custom reports</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card stat-card">
+                            <i class="bi bi-house-door stat-icon"></i>
+                            <div class="stat-number">24</div>
+                            <div class="stat-title">Available Rooms</div>
+                            <div class="stat-change up"><i class="bi bi-arrow-up"></i> 12% from last month</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card stat-card">
+                            <i class="bi bi-calendar-check stat-icon"></i>
+                            <div class="stat-number">21</div>
+                            <div class="stat-title">Current Bookings</div>
+                            <div class="stat-change up"><i class="bi bi-arrow-up"></i> 8% from last month</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card stat-card">
+                            <i class="bi bi-door-open stat-icon"></i>
+                            <div class="stat-number">11</div>
+                            <div class="stat-title">Checkouts Today</div>
+                            <div class="stat-change down"><i class="bi bi-arrow-down"></i> 3% from yesterday</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card stat-card">
+                            <i class="bi bi-x-circle stat-icon"></i>
+                            <div class="stat-number">5</div>
+                            <div class="stat-title">Cancellations</div>
+                            <div class="stat-change down"><i class="bi bi-arrow-down"></i> 2% from last month</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div class="row g-3 mb-4">
+                    <div class="col-lg-8">
+                        <div class="card chart-container">
+                            <div class="chart-header">
+                                <h5 class="chart-title">Monthly Occupancy Rate</h5>
+                                <select class="form-select form-select-sm" aria-label="Chart range">
+                                    <option>This Week</option>
+                                    <option>This Month</option>
+                                    <option selected>This Year</option>
+                                    <option>Custom Range</option>
+                                </select>
+                            </div>
+                            <canvas id="occupancyChart" height="335"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card chart-container">
+                            <div class="chart-header">
+                                <h5 class="chart-title">Room Type Distribution</h5>
+                            </div>
+                            <canvas id="roomTypeChart" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Bookings & Calendar -->
+                <div class="row g-3">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="d-flex justify-content-between align-items-center p-3">
+                                <h5 class="chart-title">Recent Bookings</h5>
+                                <a href="#bookings" class="btn btn-sm action-btn">View All</a>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Booking ID</th>
+                                            <th>Guest</th>
+                                            <th>Room</th>
+                                            <th>Check-In</th>
+                                            <th>Check-Out</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>#RS-2025-0456</td>
+                                            <td>Johnmon VK</td>
+                                            <td>Deluxe Suite</td>
+                                            <td>15 Jun 2025</td>
+                                            <td>20 Jun 2025</td>
+                                            <td><span class="approval-status status-approved">Confirmed</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary" aria-label="View"><i class="bi bi-eye"></i></button>
+                                                <button class="btn btn-sm btn-outline-success" aria-label="Edit"><i class="bi bi-pencil"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#RS-2025-0455</td>
+                                            <td>Abidev</td>
+                                            <td>Executive Room</td>
+                                            <td>14 Jun 2025</td>
+                                            <td>18 Jun 2025</td>
+                                            <td><span class="approval-status status-approved">Confirmed</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary" aria-label="View"><i class="bi bi-eye"></i></button>
+                                                <button class="btn btn-sm btn-outline-success" aria-label="Edit"><i class="bi bi-pencil"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#RS-2025-0454</td>
+                                            <td>Aiswariya</td>
+                                            <td>Presidential Suite</td>
+                                            <td>12 Jun 2025</td>
+                                            <td>15 Jun 2025</td>
+                                            <td><span class="approval-status status-pending">Pending</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary" aria-label="View"><i class="bi bi-eye"></i></button>
+                                                <button class="btn btn-sm btn-outline-success" aria-label="Edit"><i class="bi bi-pencil"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#RS-2025-0453</td>
+                                            <td>Basil</td>
+                                            <td>Standard Room</td>
+                                            <td>10 Jun 2025</td>
+                                            <td>14 Jun 2025</td>
+                                            <td><span class="approval-status status-approved">Confirmed</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary" aria-label="View"><i class="bi bi-eye"></i></button>
+                                                <button class="btn btn-sm btn-outline-success" aria-label="Edit"><i class="bi bi-pencil"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#RS-2025-0452</td>
+                                            <td>Tom</td>
+                                            <td>Family Suite</td>
+                                            <td>08 Jun 2025</td>
+                                            <td>12 Jun 2025</td>
+                                            <td><span class="approval-status status-rejected">Cancelled</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary" aria-label="View"><i class="bi bi-eye"></i></button>
+                                                <button class="btn btn-sm btn-outline-success" aria-label="Edit"><i class="bi bi-pencil"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card calendar-widget">
+                            <div class="calendar-header">
+                                <h5 class="calendar-title">June 2025</h5>
+                                <div>
+                                    <button class="btn btn-sm btn-outline-secondary" aria-label="Previous month"><i class="bi bi-chevron-left"></i></button>
+                                    <button class="btn btn-sm btn-outline-secondary" aria-label="Next month"><i class="bi bi-chevron-right"></i></button>
+                                </div>
+                            </div>
+                            <div class="calendar-grid mb-3">
+                                <div class="calendar-day-header">Sun</div>
+                                <div class="calendar-day-header">Mon</div>
+                                <div class="calendar-day-header">Tue</div>
+                                <div class="calendar-day-header">Wed</div>
+                                <div class="calendar-day-header">Thu</div>
+                                <div class="calendar-day-header">Fri</div>
+                                <div class="calendar-day-header">Sat</div>
+                            </div>
+                            <div class="calendar-grid">
+                                <div class="calendar-day other-month">25</div>
+                                <div class="calendar-day other-month">26</div>
+                                <div class="calendar-day other-month">27</div>
+                                <div class="calendar-day other-month">28</div>
+                                <div class="calendar-day other-month">29</div>
+                                <div class="calendar-day other-month">30</div>
+                                <div class="calendar-day">1</div>
+                                <div class="calendar-day">2</div>
+                                <div class="calendar-day">3</div>
+                                <div class="calendar-day">4</div>
+                                <div class="calendar-day">5</div>
+                                <div class="calendar-day">6</div>
+                                <div class="calendar-day">7</div>
+                                <div class="calendar-day">8</div>
+                                <div class="calendar-day">9</div>
+                                <div class="calendar-day">10</div>
+                                <div class="calendar-day">11</div>
+                                <div class="calendar-day">12</div>
+                                <div class="calendar-day active">13</div>
+                                <div class="calendar-day has-booking">14</div>
+                                <div class="calendar-day has-booking">15</div>
+                                <div class="calendar-day">16</div>
+                                <div class="calendar-day">17</div>
+                                <div class="calendar-day">18</div>
+                                <div class="calendar-day">19</div>
+                                <div class="calendar-day">20</div>
+                                <div class="calendar-day">21</div>
+                                <div class="calendar-day">22</div>
+                                <div class="calendar-day">23</div>
+                                <div class="calendar-day">24</div>
+                                <div class="calendar-day">25</div>
+                                <div class="calendar-day">26</div>
+                                <div class="calendar-day">27</div>
+                                <div class="calendar-day">28</div>
+                                <div class="calendar-day">29</div>
+                                <div class="calendar-day">30</div>
+                            </div>
+                        </div>
+                        <div class="weather-widget mt-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div>
+                                    <div class="location"><i class="bi bi-geo-alt"></i> Ponmudi Dam, Kerala</div>
+                                    <div class="temperature">32°C</div>
+                                </div>
+                                <div class="weather-icon"><i class="bi bi-sun"></i></div>
+                            </div>
+                            <div class="weather-details d-flex justify-content-between">
+                                <div class="weather-detail">
+                                    <div class="detail-label">Humidity</div>
+                                    <div class="detail-value">65%</div>
+                                </div>
+                                <div class="weather-detail">
+                                    <div class="detail-label">Wind</div>
+                                    <div class="detail-value">12 km/h</div>
+                                </div>
+                                <div class="weather-detail">
+                                    <div class="detail-label">Rain</div>
+                                    <div class="detail-value">10%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Placeholder Tabs -->
+            <div class="tab-pane fade" id="rooms"><h3 class="section-title">Rooms Management</h3></div>
+            <div class="tab-pane fade" id="bookings"><h3 class="section-title">Bookings</h3></div>
+            <div class="tab-pane fade" id="packages"><h3 class="section-title">Packages & Events</h3></div>
+            <div class="tab-pane fade" id="guests"><h3 class="section-title">Guest Management</h3></div>
+            <div class="tab-pane fade" id="dining"><h3 class="section-title">Dining & Restaurant</h3></div>
+            <div class="tab-pane fade" id="approvals"><h3 class="section-title">Room Approvals</h3></div>
+            <div class="tab-pane fade" id="reports"><h3 class="section-title">Reports & Analytics</h3></div>
+            <div class="tab-pane fade" id="staff"><h3 class="section-title">Staff Management</h3></div>
+            <div class="tab-pane fade" id="settings"><h3 class="section-title">System Settings</h3></div>
+        </div>
+    </div>
+<!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <a href="#" class="footer-logo">Royal <span>Star</span> Residency</a>
+                    <div class="footer-about">
+                        <p>Experience unparalleled luxury and exceptional service at our award-winning resort. We're dedicated to creating unforgettable experiences for our guests.</p>
+                        <div class="social-icons">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-5 mb-md-0">
+                    <div class="footer-links">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="#home">Home</a></li>
+                            <li><a href="#rooms">Rooms</a></li>
+                            <li><a href="#services">Services</a></li>
+                            <li><a href="#about">About Us</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-5 mb-md-0">
+                    <div class="footer-links">
+                        <h4>Services</h4>
+                        <ul>
+                            <li><a href="#">Spa & Wellness</a></li>
+                            <li><a href="#">Dining</a></li>
+                            <li><a href="#">Events</a></li>
+                            <li><a href="#">Activities</a></li>
+                            <li><a href="#">Concierge</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="footer-newsletter">
+                        <h4>Newsletter</h4>
+                        <p>Subscribe to our newsletter for special offers and updates.</p>
+                        <form class="newsletter-form">
+                            <input type="email" class="newsletter-input" placeholder="Your Email">
+                            <button type="submit" class="newsletter-btn"><i class="fas fa-paper-plane"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Royal Star Residency. All Rights Reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms & Conditions</a></p>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+    </body>
+</html>
